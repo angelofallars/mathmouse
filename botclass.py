@@ -44,7 +44,13 @@ class QuizBot(discord.Client):
                 b = random.randint(1, 20)
                 answer = a + b
 
-                await chnl.send('``**{}.** What is {} + {}?``'.format(i, a, b))
+                # await chnl.send('``**{}.** What is {} + {}?``'.format(i, a, b))
+
+                embed = discord.Embed(title="Question #{}".format(i), 
+                                      description="What is {} + {}?".format(a, b), 
+                                      color=0x2ab245)
+                embed.set_author(name="MathMouse")
+                await ctx.send(embed=embed)
 
                 def is_correct(m):
                     return m.author == message.author and m.content.isdigit()
