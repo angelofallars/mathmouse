@@ -5,7 +5,7 @@ import csv
 import csv_funcs
 
 
-class MathQuiz(discord.Client):
+class QuizBot(discord.Client):
     async def on_ready(self):
         print('Logged in as')
         print(self.user.name)

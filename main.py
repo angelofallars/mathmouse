@@ -4,12 +4,12 @@ from botclass import MathQuiz
 
 
 def main():
-    # Get token
+    # Get token from .env file in same directory
     load_dotenv()
     TOKEN = os.getenv('TOKEN')
 
     # Run the client
-    client = MathQuiz()
+    client = QuizBot()
     client.run(TOKEN)
 
 
