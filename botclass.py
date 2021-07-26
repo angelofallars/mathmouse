@@ -3,6 +3,9 @@ import random
 import asyncio
 import csv
 import csv_funcs
+import embeds as emb
+from quiz import Question
+from quiz import Quiz
 
 
 class QuizBot(discord.Client):
@@ -24,8 +27,24 @@ class QuizBot(discord.Client):
         args = message.content.split()
         chnl = message.channel
 
-        # COMMAND: Addition quiz
-        if args[0] == 'm.add':
+        # COMMAND: Start quiz
+        if args[0] == 'm.quiz':
+
+            # Check quiz type
+            if len(args) >= 2:
+                if args[1] == 'addition':
+                    quiz_type = 'addition'
+                elif args[1] == 'subtraction':
+                    quiz_type = 'subtraction'
+                elif args[1] == 'multiplication':
+                    quiz_type = 'multiplication'
+                elif args[1] == 'division':
+                    quiz_type = 'division'
+                else:
+                    return
+            else:
+                return
+
             timeout = 5
             question_count = 5
             score = 0
@@ -36,21 +55,21 @@ class QuizBot(discord.Client):
             await chnl.send("You have {} seconds each to answer {} question(s)!"
                             .format(timeout, question_count))
 
-            # Iterate through all of the questions
-            for i in range(1, question_count + 1):
+            # Initialize the quiz and questions variables
+            questions = [Question(q_type=quiz_type) for i in range(question_count)]
+            quiz = Quiz(questions=questions,
+                        name="{} Quiz".format(quiz_type.title()))
 
-                # Initialize the values for one question
-                a = random.randint(1, 20)
-                b = random.randint(1, 20)
-                answer = a + b
+            # Iterate through all of the questions
+            for i in range(len(quiz.questions)):
+                answer = quiz.questions[i].answer
 
                 # Print the question
-                embed = discord.Embed(title="Addition Quiz",
-                                      description="What is {} + {}?".format(a,
-                                                                            b),
-                                      color=0x2ab245)
-                embed.set_footer(text="question #{}/{}".format(i,
-                                                               question_count))
+                title = "question #{}/{}".format(i + 1, len(quiz.questions))
+                description = "What is {}?".format(quiz.questions[i].text)
+                footer = "{}".format(quiz.name)
+
+                embed = emb.print_embed(title, description, footer)
                 await chnl.send(embed=embed)
 
                 def is_correct(m):
@@ -63,18 +82,22 @@ class QuizBot(discord.Client):
                                                 timeout=timeout)
                 # Timeout
                 except asyncio.TimeoutError:
-                    await chnl.send('Sorry, you took too long it was {}.'
-                                    .format(answer))
+                    embed = emb.print_embed(title=title,
+                                            description='Timeout! The answer is {}.'.format(quiz.questions[i].answer))
+                    await chnl.send(embed=embed)
                     continue
 
                 # Correct Answer
                 if int(guess.content) == answer:
-                    await chnl.send('🎉You are right🎉!')
+                    embed = emb.print_embed(title=title,
+                                            description='🎉You are right🎉!')
+                    await chnl.send(embed=embed)
                     score += 1
                 # Wrong Answer
                 else:
-                    await chnl.send('Oops. The answer is {}.'
-                                    .format(answer))
+                    embed = emb.print_embed(title=title,
+                                            description='Oops, the answer is {}.'.format(quiz.questions[i].answer))
+                    await chnl.send(embed=embed)
 
             # Send the user's score
             await chnl.send("Your score was **{}**/**{}**, {}!"
@@ -85,7 +108,7 @@ class QuizBot(discord.Client):
             if score >= question_count:
                 await chnl.send("You answered all questions perfectly! Great job! 😍")
 
-            # Send a message for perfect scores
+            # Send a message for zero scores
             if score == 0:
                 await chnl.send("Better luck next time!")
 
