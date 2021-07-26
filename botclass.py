@@ -31,9 +31,9 @@ class QuizBot(discord.Client):
             score = 0
 
             # Send the pre-quiz messages for the user
-            await chnl.send("``Starting quiz for {}...``"
+            await chnl.send("Starting quiz for {}..."
                             .format(message.author))
-            await chnl.send("``You have {} seconds each to answer {} question(s)!``"
+            await chnl.send("You have {} seconds each to answer {} question(s)!"
                             .format(timeout, question_count))
 
             # Iterate through all of the questions
@@ -44,13 +44,14 @@ class QuizBot(discord.Client):
                 b = random.randint(1, 20)
                 answer = a + b
 
-                # await chnl.send('``**{}.** What is {} + {}?``'.format(i, a, b))
-
-                embed = discord.Embed(title="Question #{}".format(i),
-                                      description="What is {} + {}?".format(a, b),
+                # Print the question
+                embed = discord.Embed(title="Addition Quiz",
+                                      description="What is {} + {}?".format(a,
+                                                                            b),
                                       color=0x2ab245)
-                embed.set_author(name="MathMouse")
-                await ctx.send(embed=embed)
+                embed.set_footer(text="question #{}/{}".format(i,
+                                                               question_count))
+                await chnl.send(embed=embed)
 
                 def is_correct(m):
                     return m.author == message.author and m.content.isdigit()
@@ -62,33 +63,31 @@ class QuizBot(discord.Client):
                                                 timeout=timeout)
                 # Timeout
                 except asyncio.TimeoutError:
-                    await chnl.send('``Sorry, you took too long it was {}.``'
+                    await chnl.send('Sorry, you took too long it was {}.'
                                     .format(answer))
                     continue
 
                 # Correct Answer
                 if int(guess.content) == answer:
-                    await chnl.send('``🎉You are right🎉!``')
+                    await chnl.send('🎉You are right🎉!')
                     score += 1
                 # Wrong Answer
                 else:
-                    await chnl.send('``Oops. The answer is {}.``'
+                    await chnl.send('Oops. The answer is {}.'
                                     .format(answer))
 
             # Send the user's score
-            await chnl.send("``Your score was **{}**/**{}**, {}!``"
+            await chnl.send("Your score was **{}**/**{}**, {}!"
                             .format(score, question_count,
                                     message.author))
 
             # Send a message for perfect scores
             if score >= question_count:
-                await chnl.send
-                ("``You answered all questions perfectly! Great job! 😍``")
+                await chnl.send("You answered all questions perfectly! Great job! 😍")
 
             # Send a message for perfect scores
             if score == 0:
-                await chnl.send
-                ("``Better luck next time!``")
+                await chnl.send("Better luck next time!")
 
             # Update user's score in scores.csv
             csv_funcs.update_score(str(message.author.id), score)
@@ -105,6 +104,6 @@ class QuizBot(discord.Client):
 
                 for row in csv_reader:
                     if row[0] == user_id:
-                        await chnl.send("``<@{}>'s score is {}.``"
+                        await chnl.send("<@{}>'s score is {}."
                                         .format(row[0], row[1]))
                         break
