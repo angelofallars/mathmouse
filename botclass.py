@@ -46,8 +46,8 @@ class QuizBot(discord.Client):
 
                 # await chnl.send('``**{}.** What is {} + {}?``'.format(i, a, b))
 
-                embed = discord.Embed(title="Question #{}".format(i), 
-                                      description="What is {} + {}?".format(a, b), 
+                embed = discord.Embed(title="Question #{}".format(i),
+                                      description="What is {} + {}?".format(a, b),
                                       color=0x2ab245)
                 embed.set_author(name="MathMouse")
                 await ctx.send(embed=embed)
