@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from botclass import MathQuiz
+from botclass import QuizBot
 
 
 def main():

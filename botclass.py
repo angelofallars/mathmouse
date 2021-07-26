@@ -51,7 +51,7 @@ class QuizBot(discord.Client):
 
                 # Wait for the answer
                 try:
-                    guess = await self.wait_for('``message``',
+                    guess = await self.wait_for('message',
                                                 check=is_correct,
                                                 timeout=timeout)
                 # Timeout
