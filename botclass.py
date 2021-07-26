@@ -76,7 +76,8 @@ class MathQuiz(discord.Client):
 
             # Send a message for perfect scores
             if score >= question_count:
-                await chnl.send("You answered all questions perfectly! Great job! 😍")
+                await chnl.send
+                ("You answered all questions perfectly! Great job! 😍")
 
             # Update user's score in scores.csv
             csv_funcs.update_score(str(message.author.id), score)
