@@ -24,9 +24,21 @@ from botclass import QuizBot
 
 
 def main():
-    # Get token from .env file in same directory
-    load_dotenv()
-    TOKEN = os.getenv('TOKEN')
+    # Check if running on heroku
+    is_prod = os.environ.get('IS_HEROKU', None)
+
+    # Running on Heroku
+    if is_prod:
+        TOKEN = os.environ.get('KEY', None)
+    # Running on dev
+    else:
+        # Get token from .env file in same directory
+        load_dotenv()
+        TOKEN = os.getenv('TOKEN')
+
+    # Return if no token
+    if not TOKEN:
+        return 1
 
     # Run the client
     client = QuizBot()
