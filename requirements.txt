@@ -112,7 +112,6 @@ youtube-dl==2021.4.26
 zipp==1.0.0
 aiohttp==3.7.4.post0
 appdirs==1.4.3
-apt-clone==0.2.1
 apturl==0.5.2
 async-timeout==3.0.1
 attrs==21.2.0
