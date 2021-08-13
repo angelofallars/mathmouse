@@ -4,6 +4,7 @@ import asyncio
 import csv
 import csv_funcs
 import embeds as emb
+import os
 from quiz import Question
 from quiz import Quiz
 
@@ -14,6 +15,11 @@ class QuizBot(discord.Client):
         print(self.user.name)
         print(self.user.id)
         print('------')
+
+        # Create a scores.csv if it doesn't exist
+        if not os.path.isfile('scores.csv'):
+            file = open('scores.csv', 'w')
+            file.close()
 
     async def on_message(self, message):
         # Don't make the bot reply to itself
