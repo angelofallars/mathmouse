@@ -25,11 +25,12 @@ from botclass import QuizBot
 
 def main():
     # Check if running on heroku
-    is_prod = os.environ.get('IS_HEROKU', None)
+    is_prod = os.environ.get('IS_HEROKU')
 
     # Running on Heroku
     if is_prod:
-        TOKEN = os.environ.get('KEY', None)
+        TOKEN = os.environ.get('TOKEN')
+
     # Running on dev
     else:
         # Get token from .env file in same directory
@@ -41,8 +42,7 @@ def main():
         from sys import exit
         if is_prod:
             exit(101)
-        else:
-            exit(201)
+
 
     # Run the client
     client = QuizBot()
