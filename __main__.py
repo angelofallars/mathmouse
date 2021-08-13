@@ -35,13 +35,12 @@ def main():
     else:
         # Get token from .env file in same directory
         load_dotenv()
-        TOKEN = os.getenv('TOKEN')
+        TOKEN = os.environ.get('TOKEN')
 
     # Return if no token
     if not TOKEN:
         from sys import exit
-        if is_prod:
-            exit(101)
+        exit(101)
 
 
     # Run the client
