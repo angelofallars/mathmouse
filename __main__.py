@@ -38,7 +38,8 @@ def main():
 
     # Return if no token
     if not TOKEN:
-        return 1
+        from sys import exit
+        exit(101)
 
     # Run the client
     client = QuizBot()

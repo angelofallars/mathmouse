@@ -1,3 +1,2 @@
 discord==1.7.3
 python-dotenv==0.19.0
-boto==2.49.0
