@@ -79,7 +79,7 @@ class QuizBot(discord.Client):
                 await chnl.send(embed=embed)
 
                 def is_correct(m):
-                    return m.author == message.author and m.content.isdigit()
+                    return m.author == message.author
 
                 # Wait for the answer
                 try:
