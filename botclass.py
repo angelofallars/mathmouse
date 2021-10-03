@@ -136,3 +136,17 @@ class QuizBot(discord.Client):
                         await chnl.send("<@{}>'s score is {}."
                                         .format(row[0], row[1]))
                         break
+
+        if args[0] == 'm.help':
+            await chnl.send("""MathMouse Bot!
+-- By Angelo Fallaria
+
+Available quizzes:
+m.addition
+m.subtraction
+m.multiplication
+m.division
+
+Github: https://github.com/angelofallars/mathmouse
+""")
+
