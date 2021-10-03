@@ -52,7 +52,7 @@ class Question:
 
             factors = []
             while factors == []:
-                a = random.randint(1, difficulty * 1.5)
+                a = random.randint(1, difficulty * 2)
                 factors = get_factors(a)
 
             b = random.choice(factors)

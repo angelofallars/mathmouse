@@ -51,7 +51,7 @@ class QuizBot(discord.Client):
             else:
                 return
 
-            timeout = 12
+            timeout = 10
             question_count = 5
             score = 0
 
