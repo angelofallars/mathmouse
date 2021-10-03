@@ -142,10 +142,10 @@ class QuizBot(discord.Client):
 -- By Angelo Fallaria
 
 Available quizzes:
-m.addition
-m.subtraction
-m.multiplication
-m.division
+m.quiz addition
+m.quiz subtraction
+m.quiz multiplication
+m.quiz division
 
 Github: https://github.com/angelofallars/mathmouse
 """)
