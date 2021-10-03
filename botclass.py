@@ -147,6 +147,12 @@ m.quiz subtraction
 m.quiz multiplication
 m.quiz division
 
+Display your score
+m.score
+
+Display someone else's score
+m.score <user>
+
 Github: https://github.com/angelofallars/mathmouse
 """)
 
