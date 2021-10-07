@@ -51,7 +51,7 @@ class QuizBot(discord.Client):
             else:
                 return
 
-            timeout = 5
+            timeout = 10
             question_count = 5
             score = 0
 
@@ -142,10 +142,16 @@ class QuizBot(discord.Client):
 -- By Angelo Fallaria
 
 Available quizzes:
-m.addition
-m.subtraction
-m.multiplication
-m.division
+m.quiz addition
+m.quiz subtraction
+m.quiz multiplication
+m.quiz division
+
+Display your score
+m.score
+
+Display someone else's score
+m.score <user>
 
 Github: https://github.com/angelofallars/mathmouse
 """)

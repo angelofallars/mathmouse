@@ -3,6 +3,20 @@ import math
 import random
 
 
+def get_factors(n):
+    """Return a list of the factors of a number n.
+Does not include 1 or the number n in list of factors because they're used for
+division questions.
+"""
+    factors = []
+
+    for i in range(2, n):
+        if n % i == 0:
+            factors.append(i)
+
+    return factors
+
+
 class Question:
     def __init__(self,
                  text=None,
@@ -34,8 +48,15 @@ class Question:
             self.answer = a * b
 
         elif q_type == 'division':
-            a = random.randint(1, difficulty)
-            b = random.randint(1, difficulty)
+            # Only whole division for now
+
+            factors = []
+            while factors == []:
+                a = random.randint(1, difficulty * 2)
+                factors = get_factors(a)
+
+            b = random.choice(factors)
+
             self.text = "{} ÷ {}".format(a, b)
             self.answer = a / b
 
